@@ -117,23 +117,23 @@ class LogicParser:
 
 
 def eliminate_implications(node):
-    """Step 1: Implications and Biconditionals Removal."""
-    if isinstance(node, BinaryOp):
-        left = eliminate_implications(node.left)
-        right = eliminate_implications(node.right)
-        if node.operator == "->":
-            # A -> B  =>  ~A v B
-            return BinaryOp(UnaryOp(left), right, 'v')
+    """eliminates the implications and biconditionals (A -> B and A <-> B)."""
+    if isinstance(node, BinaryOp): # if its a binary operator
+        left_st = eliminate_implications(node.left) # recursively process the left child
+        right_st = eliminate_implications(node.right) # similarly, right child (these are bottom up calls)
+        if node.operator == '->':
+            # from (A -> B)  to  (~A v B)
+            return BinaryOp(UnaryOp(left_st), right_st, 'v')
         elif node.operator == '<->':
-            # A <-> B => (~A v B) ^ (~B v A)
+            # from (A <-> B)  to  (~A v B) ^ (~B v A)
             return BinaryOp(
-                BinaryOp(UnaryOp(left), right, 'v'),
-                BinaryOp(UnaryOp(right), left, 'v'),
+                BinaryOp(UnaryOp(left_st), right_st, 'v'),
+                BinaryOp(UnaryOp(right_st), left_st, 'v'),
                 '^'
             )
-        return BinaryOp(left, right, node.operator)
-    elif isinstance(node, UnaryOp):
-        return UnaryOp(eliminate_implications(node.operand))
+        return BinaryOp(left_st, right_st, node.operator)
+    elif isinstance(node, UnaryOp): # if its a unary operator, negation
+        return UnaryOp(eliminate_implications(node.operand)) # recursively process the operand, add negation after the return. 
     return node
 
 
