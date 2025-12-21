@@ -38,6 +38,21 @@ def run_test_suite():
             "id": 5,
             "desc": "Complex Distribution",
             "formula": "(A ^ B) v (C ^ D)"
+        }, 
+        {
+            "id": 6,
+            "desc": "Double Negation",
+            "formula": "~~A"
+        },
+        {
+            "id": 7,
+            "desc": "Negated Implication",
+            "formula": "~(A -> B)"
+        },
+        {
+            "id": 8,
+            "desc": "Single Variable",
+            "formula": "A"
         }
     ]
 
