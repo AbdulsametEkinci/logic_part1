@@ -4,7 +4,7 @@ import sys
 try:
     from cnf import LogicParser, DIMACSGenerator, convert_to_nnf, eliminate_implications, distribute_or_over_and
 except ImportError:
-    print("Error: 'cnf.py' modülü bulunamadı. Lütfen aynı dizinde olduğundan emin olun.")
+    print("Error: could not import 'cnf' module. Make sure 'cnf.py' is in the same directory as this script.")
     sys.exit(1)
 
 def run_test_suite():
@@ -68,7 +68,7 @@ def run_test_suite():
             os.makedirs(test_dir)
         
         print(f"Test {case_id}: {desc}")
-        print(f"  Formül: {formula}")
+        print(f"  Formula: {formula}")
 
         input_path = os.path.join(test_dir, "p_logic_in.txt")
         with open(input_path, "w") as f:
@@ -88,7 +88,7 @@ def run_test_suite():
             with open(output_path, "w") as f:
                 f.write(f"c Formula: {formula}\n")
                 f.write(dimacs_output)
-            print(f"  -> Çıktı oluşturuldu: {output_path}")
+            print(f"  -> output: {output_path}")
             
         except Exception as e:
             print(f"  -> error: {e} \n")

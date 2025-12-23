@@ -117,7 +117,7 @@ class LogicParser:
 
 
 def eliminate_implications(node):
-    """eliminates the implications and biconditionals (A -> B and A <-> B)."""
+    """Step 1: eliminates the implications and biconditionals (A -> B and A <-> B)."""
     if isinstance(node, BinaryOp): # if its a binary operator
         left_st = eliminate_implications(node.left) # recursively process the left child
         right_st = eliminate_implications(node.right) # similarly, right child (these are bottom up calls)
