@@ -1,0 +1,5 @@
+c Formula: x1 v x2 ^ ~var3
+c Variable Map: var3=1, x1=2, x2=3
+p cnf 3 2
+2 3 0
+2 -1 0
